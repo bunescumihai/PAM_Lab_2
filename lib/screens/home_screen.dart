@@ -5,14 +5,7 @@ import "package:lab_2/shared/search_input.dart";
 import "package:lab_2/shared/section_most_recomended/section_most_recommended.dart";
 import "package:lab_2/shared/section_nearest/section_nearest_barbershop.dart";
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

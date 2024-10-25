@@ -1,8 +1,11 @@
 import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter/material.dart";
+import 'package:get/get.dart';
+import "package:lab_2/controllers/barbershop_controller.dart";
 import "package:lab_2/moks/barbershops.dart";
 import "package:lab_2/shared/barber_medium_card.dart";
 
+import "../../controllers/carousel_slider_controller.dart";
 import "../barber_big_card.dart";
 
 class SectionMostRecommended extends StatefulWidget {
@@ -13,7 +16,10 @@ class SectionMostRecommended extends StatefulWidget {
 }
 
 class _SectionMostRecommendedState extends State<SectionMostRecommended> {
-  int _current = 0;
+
+  final BarbershopController barbershopController = Get.find<BarbershopController>();
+  final CarouselSliderController1 carouselSliderController = Get.put(CarouselSliderController1());
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,43 +35,53 @@ class _SectionMostRecommendedState extends State<SectionMostRecommended> {
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
               )),
-          CarouselSlider(
-            options: CarouselOptions(
-                height: 295,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-            items: barbershops.map((b) => BarberBigCard(b)).toList(),
-          ),
+
+          Obx(() {
+            return CarouselSlider(
+              options: CarouselOptions(
+                  height: 295,
+                  viewportFraction: 1,
+                  onPageChanged: (index, reason) {
+                    carouselSliderController.setSlideNumber(index);
+                  }),
+              items: carouselSliderController.barberList.map((b) => BarberBigCard(b)).toList(),
+            );
+          }),
+
           SizedBox(height: 10),
 
-          Row(
+          Obx(() {
+            return Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: barbershops.map((url) {
               int index = barbershops.indexOf(url);
               return Container(
-                width: _current == index ? 20 : 8.0,
+                width: carouselSliderController.slideNumber.value == index ? 20 : 8.0,
                 height: 8.0,
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: _current == index
+                  color: carouselSliderController.slideNumber.value == index
                       ? Color.fromRGBO(54, 48, 98, 0.9)
                       : Color.fromRGBO(0, 0, 0, 0.4),
                 ),
               );
             }).toList(),
-          ),
+          );}),
 
-          ListView.builder(
-            shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (context, index) {
-            return BarberCard(barbershops[index]);
-          })
+          Obx((){
+            if(barbershopController.loadingAllBarbershops.value)
+              return Center(child: CircularProgressIndicator());
+
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: barbershopController.barbershopsList.length,
+                itemBuilder: (context, index) {
+                  return BarberCard(barbershopController.barbershopsList[index]);
+                });
+          }
+          )
+
         ],
       ),
     );
