@@ -10,42 +10,37 @@ class UserSimple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.locationDot,
-                        size: 13,
-                        color: Theme.of(context).iconTheme.color,
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 3),
-                          child: Text(_user.location,
-                              style: Theme.of(context).textTheme.labelMedium)),
-                    ],
-                  ),
-                  Text(
-                    _user.fullName,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  )
-                ],
-              )),
-          CircleAvatar(
-            backgroundImage: AssetImage(
-              _user.imagePath,
-            ),
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.locationDot,
+                      size: 13,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(left: 3),
+                        child: Text(_user.location, style: Theme.of(context).textTheme.labelMedium)),
+                  ],
+                ),
+                Text(
+                  _user.fullName,
+                  style: Theme.of(context).textTheme.titleSmall
+                )
+              ],
+            )),
+        CircleAvatar(
+          backgroundImage: AssetImage(_user.imagePath),
+        )
+      ],
     );
   }
 }

@@ -1,7 +1,7 @@
 import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter/material.dart";
 import "package:lab_2/moks/barbershops.dart";
-import "package:lab_2/shared/barber_card.dart";
+import "package:lab_2/shared/barber_medium_card.dart";
 
 import "../barber_big_card.dart";
 
@@ -41,7 +41,7 @@ class _SectionMostRecommendedState extends State<SectionMostRecommended> {
             items: barbershops.map((b) => BarberBigCard(b)).toList(),
           ),
           SizedBox(height: 10),
-          // Indicators (Dots)
+
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: barbershops.map((url) {
@@ -53,8 +53,8 @@ class _SectionMostRecommendedState extends State<SectionMostRecommended> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: _current == index
-                      ? Color.fromRGBO(54, 48, 98, 0.9) // Active dot color
-                      : Color.fromRGBO(0, 0, 0, 0.4), // Inactive dot color
+                      ? Color.fromRGBO(54, 48, 98, 0.9)
+                      : Color.fromRGBO(0, 0, 0, 0.4),
                 ),
               );
             }).toList(),
